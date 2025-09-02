@@ -50,7 +50,7 @@ Backup (Markdown) version of the two GIFs:
 <details>
 <summary><code>void main_setup()</code> (click to expand)</summary>
 
-```cpp
+<pre>
 void main_setup() { // Sphere drag; required extensions in defines.hpp: FP16C, FORCE_FIELD, EQUILIBRIUM_BOUNDARIES, SUBGRID, optionally INTERACTIVE_GRAPHICS
     // ########################## define simulation box size, viscosity and volume force ##########################
     const uint  memory  = 500u;   // available VRAM in MB (increase if you have headroom)
@@ -124,7 +124,7 @@ void main_setup() { // Sphere drag; required extensions in defines.hpp: FP16C, F
         lbm.run(1u, lbm_T);
     }
 }
-
+</pre>
 
 ## Drag coefficient sweeping over Reynolds number
 

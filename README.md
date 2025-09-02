@@ -113,7 +113,7 @@ void main_setup() { // Sphere drag; required extensions in defines.hpp: FP16C, F
 
 ## Drag coefficient sweeping over Reynolds number
 
-### Test device (example)
+### Test device
 
 | Item | Spec |
 |---|---|

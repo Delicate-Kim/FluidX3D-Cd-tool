@@ -10,7 +10,7 @@ https://github.com/ProjectPhysX/FluidX3D
 
 <!-- 
 ![Simulation demo (10 times faster)](misc/Re_10000_Q_10x.gif)
-![Cd output demo (10 times faster)](misc/Re_10000_Cd_10x.gif)
+![Cd output demo (10 times faster)](misc/Re_1000_Cd_10x.gif)
 --!>
 
 ## Guideline

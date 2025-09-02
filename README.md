@@ -10,7 +10,7 @@ This repository provides small helper scripts and examples to **output drag coef
 
 <p align="center">
   <img src="misc/Re_10000_Q_10x.gif" alt="Simulation demo (10× faster)" width="48%"/>
-  <img src="misc/Re10000_Cd_10x.gif" alt="C_d output demo (10× faster)" width="48%"/>
+  <img src="misc/Re_10000_Cd_10x.gif" alt="C_d output demo (10× faster)" width="48%"/>
 </p>
 
 <!--

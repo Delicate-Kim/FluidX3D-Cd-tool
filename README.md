@@ -4,8 +4,8 @@ https://github.com/ProjectPhysX/FluidX3D
 
 
 <p align="center">
-  <img src="misc/Re_10000_Q_10x.gif" alt="Simulation demo (10 times faster" width="45%"/>
-  <img src="misc/Re_10000_Cd_10x.gif" alt="Cd output demo (10 times faster)" width="45%"/>
+  <img src="misc/Re10000_Q_10x.gif" alt="Simulation demo (10 times faster" width="45%"/>
+  <img src="misc/Re10000_Cd_10x.gif" alt="Cd output demo (10 times faster)" width="45%"/>
 </p>
 
 <!-- 

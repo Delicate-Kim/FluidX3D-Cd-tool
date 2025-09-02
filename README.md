@@ -37,8 +37,8 @@ Backup (Markdown) version of the two GIFs:
 > **Tip**  
 > Keep an eye on domain size and resolution for your target Reynolds number; under-resolution can affect C<sub>d</sub>.
 
+'''cpp
 <pre>
-  '''cpp
 void main_setup() { // Sphere drag; required extensions in defines.hpp: FP16C, FORCE_FIELD, EQUILIBRIUM_BOUNDARIES, SUBGRID, optionally INTERACTIVE_GRAPHICS
     // ########################## define simulation box size, viscosity and volume force ##########################
     const uint  memory  = 500u;   // available VRAM in MB (increase if you have headroom)

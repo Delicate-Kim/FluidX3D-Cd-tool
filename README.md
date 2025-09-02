@@ -167,8 +167,8 @@ void main_setup() { // Sphere drag; required extensions in defines.hpp: FP16C, F
 ## Mosquito case (**Re** = 1,000,000)
 
 <p align="center">
-  <img src="misc/Mosquito_Re_1000000_Q.gif" alt="Simulation demo (10× faster)" width="54%"/>
-  <img src="misc/Mosquito_Re_1000000_Cd.gif" alt="C_d output demo (10× faster)" width="43%"/>
+  <img src="misc/Mosquito_Re1000000_Q.gif" alt="Simulation demo (10× faster)" width="54%"/>
+  <img src="misc/Mosquito_Re1000000_Cd.gif" alt="C_d output demo (10× faster)" width="43%"/>
 </p>
 
 Left: vortical structures visualized with the Q-criterion (color represents speed). Right: live monitoring of the drag coefficient C<sub>d</sub>. Both videos are shown at 10× speed.

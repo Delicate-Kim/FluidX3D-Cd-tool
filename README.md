@@ -31,19 +31,11 @@ Backup (Markdown) version of the two GIFs:
    - Put STL files you plan to use in the usual place FluidX3D expects them: `FluidX3D-master\stl\`
 
 3) **Use the sphere drag setup**
-   - Replace your `void main_setup() { ... }` in your case with the snippet below (see **Guideline**).  
+   - Replace your `void main_setup() { ... }` in your case with the snippet below. 
    - Run FluidX3D. As `Cd.dat` updates, run the plotter to visualize C<sub>d</sub> vs. time.
 
 > **Tip**  
-> Keep an eye on domain size and resolution for your target Reynolds number; under-resolution can smear the wake and inflate/deflate C<sub>d</sub>.
-
----
-
-## Guideline
-
-- **Copy** `live_cd_plot.py` to the FluidX3D binary folder (where `FluidX3D.exe` resides).
-- **Copy** the STL meshes to your `stl/` directory.
-- **Replace** your `main_setup` with the snippet below to run the **sphere drag** scenario:
+> Keep an eye on domain size and resolution for your target Reynolds number; under-resolution can affect C<sub>d</sub>.
 
 <pre>
 void main_setup() { // Sphere drag; required extensions in defines.hpp: FP16C, FORCE_FIELD, EQUILIBRIUM_BOUNDARIES, SUBGRID, optionally INTERACTIVE_GRAPHICS

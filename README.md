@@ -2,15 +2,6 @@
 
 Drag coefficient (**C<sub>d</sub>**) visualization & analysis helper for [FluidX3D by Dr. Moritz Lehmann](https://github.com/ProjectPhysX/FluidX3D)
 
-<p align="center">
-  <a href="#quickstart">Quickstart</a> •
-  <a href="#guideline">Guideline</a> •
-  <a href="#example-sphere">Example (Sphere)</a> •
-  <a href="#drag-coefficient-sweeping-over-reynolds-number">Re-sweep</a> •
-  <a href="#stl-files">STL Files</a> •
-  <a href="#acknowledgements">Acknowledgements</a>
-</p>
-
 ---
 
 This repository provides small helper scripts and examples to **output drag coefficients over time** from FluidX3D and **visualize / track** them during a run. It also includes a **baseline sphere case** for C<sub>d</sub> validation.
@@ -133,3 +124,73 @@ void main_setup() { // Sphere drag; required extensions in defines.hpp: FP16C, F
         lbm.run(1u, lbm_T);
     }
 }
+
+
+## Drag coefficient sweeping over Reynolds number
+
+### Test device (example)
+
+| Item | Spec |
+|---|---|
+| **Device Name** | NVIDIA GeForce RTX 4070 Laptop GPU |
+| **Vendor** | NVIDIA Corporation |
+| **Driver** | 566.07 (Windows) |
+| **OpenCL** | OpenCL C 3.0 |
+| **Compute Units** | 36 @ 1980 MHz (4608 cores, 18.248 TFLOPs/s) |
+| **Memory / Cache** | 8187 MB VRAM, 1008 KB global / 48 KB local |
+| **Buffer Limits** | 2046 MB global, 64 KB constant |
+
+### Example variables (target Re = 10,000)
+
+| Quantity | Value |
+|---|---|
+| **Grid Resolution** | 158 × 315 × 158 = 7,863,660 |
+| **Grid Domains** | 1 × 1 × 1 = 1 |
+| **LBM Type** | D3Q19 SRT (FP32/FP16C) |
+| **Memory Usage** | CPU 217 MB, GPU 1 × 508 MB |
+| **Max Alloc Size** | 284 MB |
+| **Time Steps** | 4662000168730624 |
+| **Kinematic Viscosity** | 0.00039375 |
+| **Relaxation Time** | 0.50118124 |
+| **Reynolds Number** | Re < 566285 |
+
+### Comparison (Re vs. C<sub>d</sub>)
+
+![Re vs C<sub>d</sub> comparison with experiment and simulation](misc/Re_Cd_overlap.png)
+
+#### Plot notes
+- **Black dots**: measured simulation data from this tool.  
+- **Blue symbols/curve**: classic sphere-drag data compiled from the literature (Maxworthy 1965; Roos & Willmarth 1971; Schlichting 1979). See **References**.
+
+#### Observations
+- Simulation values do not perfectly match experiments but are within the same order of magnitude and follow the general trend.  
+- No drag crisis observed near **Re ≈ 10<sup>5</sup>–10<sup>6</sup>** in this baseline.  
+- A **resolution study** (domain size, grid density, wall modeling) is recommended for improved accuracy.
+
+#### Potential sources of deviation
+- Under-resolved boundary layers and wake.  
+- Boundary condition simplifications.  
+- Turbulence modeling limits at high Re.
+
+---
+
+### STL files
+- `sphere_1000mm.stl`: sphere with **D = 1000 mm**  
+- `MosquitoSolo.stl`: free STL model from Cults3D (https://cults3d.com/en/3d-model/art/mosquito-model)  
+- `Ford_GT_2017.stl`: free STL model from Thingiverse (https://www.thingiverse.com/thing:2045466)  
+- `Mustang_2014.stl`: free STL model from Cults3D (https://www.thingiverse.com/thing:4978646)
+
+> **Note 1.** Mosquito wings are static in this demo; C<sub>d</sub> reflects a fixed posture.  
+> **Note 2.** Car cases generally require a ground wall (moving or stationary) and appropriate BCs.
+
+---
+
+### References
+- Maxworthy, T. (1965). *Journal of Fluid Mechanics*. https://doi.org/10.1017/S002211206500143X  
+- Roos, F. W., & Willmarth, W. W. (1971). *AIAA Journal*. https://doi.org/10.2514/3.6164  
+- Schlichting, H. (1979). *Boundary-Layer Theory*. Springer. https://doi.org/10.1007/978-3-662-52919-5
+
+---
+
+### Acknowledgements
+- FluidX3D by **Dr. Moritz Lehmann** — https://github.com/ProjectPhysX/FluidX3D

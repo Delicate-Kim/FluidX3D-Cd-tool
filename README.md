@@ -145,19 +145,12 @@ void main_setup() { // Sphere drag; required extensions in defines.hpp: FP16C, F
 
 ![Re vs C<sub>d</sub> comparison with experiment and simulation](misc/Re_Cd_overlap.png)
 
-#### Plot notes
+#### Note:
 - **Black dots**: measured simulation data from this tool.  
 - **Blue symbols/curve**: classic sphere-drag data compiled from the literature (Maxworthy 1965; Roos & Willmarth 1971; Schlichting 1979). See **References**.
-
-#### Observations
 - Simulation values do not perfectly match experiments but are within the same order of magnitude and follow the general trend.  
 - No drag crisis observed near **Re ≈ 10<sup>5</sup>–10<sup>6</sup>** in this baseline.  
-- A **resolution study** (domain size, grid density, wall modeling) is recommended for improved accuracy.
-
-#### Potential sources of deviation
-- Under-resolved boundary layers and wake.  
-- Boundary condition simplifications.  
-- Turbulence modeling limits at high Re.
+- A **resolution study** (with a higher memory) is recommended for improved accuracy.
 
 ---
 

@@ -2,9 +2,7 @@
 
 Drag coefficient (**C<sub>d</sub>**) visualization & analysis helper for [FluidX3D by Dr. Moritz Lehmann](https://github.com/ProjectPhysX/FluidX3D)
 
----
-
-This repository provides small helper scripts and examples to **output drag coefficients over time** from FluidX3D and **visualize / track** them during a run. It also includes a **baseline sphere case** for C<sub>d</sub> validation.
+This repository provides helper scripts and examples to **output drag coefficients over time** from FluidX3D and **visualize / track** them during a run. It also includes a **baseline sphere case** for C<sub>d</sub> validation.
 
 ## Example (Sphere, **Re** = 10,000)
 

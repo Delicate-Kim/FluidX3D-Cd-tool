@@ -24,15 +24,11 @@ Backup (Markdown) version of the two GIFs:
 ## Quickstart
 
 1) **Copy the live plotter**
-   - Place `live_cd_plot.py` into the directory where your FluidX3D executable lives.  
-     - Windows: `FluidX3D-master\bin\`
-     - Linux: `FluidX3D-master/bin/`
+   - Place `live_cd_plot.py` into the directory where your FluidX3D executable lives: `FluidX3D-master\bin\`
    - FluidX3D will write `Cd.dat` to a subdirectory (e.g., `FP16C/500MB/Cd.dat`). The plotter tails that file.
 
 2) **Copy geometry (STL)**
-   - Put STL files you plan to use in the usual place FluidX3D expects them, e.g.:
-     - `FluidX3D-master\stl\` (Windows)
-     - `FluidX3D-master/stl/` (Linux)
+   - Put STL files you plan to use in the usual place FluidX3D expects them: `FluidX3D-master\stl\`
 
 3) **Use the sphere drag setup**
    - Replace your `void main_setup() { ... }` in your case with the snippet below (see **Guideline**).  

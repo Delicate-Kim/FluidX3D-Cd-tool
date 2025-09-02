@@ -47,9 +47,6 @@ Backup (Markdown) version of the two GIFs:
 - **Copy** the STL meshes to your `stl/` directory.
 - **Replace** your `main_setup` with the snippet below to run the **sphere drag** scenario:
 
-<details>
-<summary><code>void main_setup()</code> (click to expand)</summary>
-
 <pre>
 void main_setup() { // Sphere drag; required extensions in defines.hpp: FP16C, FORCE_FIELD, EQUILIBRIUM_BOUNDARIES, SUBGRID, optionally INTERACTIVE_GRAPHICS
     // ########################## define simulation box size, viscosity and volume force ##########################

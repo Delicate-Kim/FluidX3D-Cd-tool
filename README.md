@@ -173,8 +173,97 @@ void main_setup() { // Sphere drag; required extensions in defines.hpp: FP16C, F
 
 Left: vortical structures visualized with the Q-criterion (color represents speed). Right: live monitoring of the drag coefficient C<sub>d</sub>. Both videos are shown at 10× speed.
 
-After ~10,000 time steps, the sphere case stabilizes at C<sub>d</sub> ≈ 0.351 at Re ≈ 1,000,000.
-Using realistic mosquito-scale parameters—flight speed u = 2 m/s, body length L = 5 mm, and air ν ≈ 1.48×10⁻⁵ m²/s—the Reynolds number is Re = uL/ν ≈ 676, and C<sub>d</sub> ≈ 0.655.
+After ~10,000 time steps, the sphere case stabilizes at C<sub>d</sub> ≈ 0.351 at Re ≈ 1,000,000. Using realistic mosquito-scale parameters—flight speed u = 2 m/s, body length L = 5 mm, and air ν ≈ 1.48×10⁻⁵ m²/s—the Reynolds number is Re = uL/ν ≈ 676, and C<sub>d</sub> ≈ 0.655. The setup.cpp is given as below.
+
+```cpp
+
+void main_setup() { // mosquito; required extensions in defines.hpp: FP16S, EQUILIBRIUM_BOUNDARIES, SUBGRID, INTERACTIVE_GRAPHICS or GRAPHICS, FORCE_FIELD
+	// ################################################################## define simulation box size, viscosity and volume force ###################################################################
+
+	const uint memory = 1000u; 
+	const uint3 lbm_N = resolution(float3(1.0f, 3.0f, 1.0f), memory);
+
+	const float si_u = 14.8; // 2.0f [m/s]
+	const float si_length = 1.0f; // 0.005f [m]
+	const float si_T = 10.0f;
+	const float si_nu = 1.48E-5f, si_rho = 1.225f; // [m^2/s] [kg/m^3]
+	const float lbm_length = 1.0f * (float)lbm_N.x;
+	const float lbm_u = 0.1f;
+	const float lbm_rho = 1.0f;
+
+	units.set_m_kg_s(lbm_length, lbm_u, lbm_rho, si_length, si_u, si_rho); 
+	const float lbm_nu = units.nu(si_nu);
+	const ulong lbm_T = units.t(si_T);
+	print_info("Re_si = " + to_string(si_u * si_length / si_nu));
+	print_info("Re_lbm = " + to_string(lbm_u * lbm_length / lbm_nu));
+	LBM lbm(lbm_N, lbm_nu);
+
+	// ###################################################################################### define geometry ######################################################################################
+	const float3 center = float3(lbm.center().x, 0.55f * lbm_length, lbm.center().z);
+	const float3x3 rotation = float3x3(float3(0, 0, 1), radians(45.0f));
+
+	// calculate projection area
+	Mesh* mesh = read_stl(get_exe_path() + "../stl/MosquitoSolo.stl", lbm.size(), center, rotation, lbm_length);
+
+	const float3 pmin = mesh->pmin;
+	const float3 pmax = mesh->pmax;
+	const float3 size_lu = pmax - pmin;
+	const float sx = units.si_x(size_lu.x);
+	const float sy = units.si_x(size_lu.y);
+	const float sz = units.si_x(size_lu.z);
+	print_info("Mosquito extents (SI): "
+		+ to_string(sx, 6u) + " x "
+		+ to_string(sy, 6u) + " x "
+		+ to_string(sz, 6u) + " m");
+	//lbm.voxelize_mesh_on_device(mesh);
+	
+	double Aproj_xz_lu = 0.0;
+	for (uint i = 0; i < mesh->triangle_number; ++i) { // assuming mesh->N triangles
+		const float3 a = mesh->p0[i], b = mesh->p1[i], c = mesh->p2[i];
+		const float3 n = cross(b - a, c - a);
+		const float  Ai = 0.5f * length(n);       // triangle area (LU^2)
+		const float  ny = fabs(n.y) / (length(n) + 1e-30f); // |unit normal · y|
+		Aproj_xz_lu += Ai * ny;
+	}
+	const double Aproj_xz_SI = sq(units.si_x(1.0f)) * Aproj_xz_lu; // convert LU^2 → m^2
+	print_info("Projected area (xz) = " + to_string((float)Aproj_xz_SI, 9u) + " m^2");
+
+	lbm.voxelize_mesh_on_device(mesh, TYPE_S | TYPE_X);
+	//lbm.voxelize_stl(get_exe_path() + "../stl/MosquitoSolo.stl", center, rotation, lbm_length); // largest dimension equals si_length (or lbm_length)
+	
+	const uint Nx = lbm.get_Nx(), Ny = lbm.get_Ny(), Nz = lbm.get_Nz(); parallel_for(lbm.get_N(), [&](ulong n) { uint x = 0u, y = 0u, z = 0u; lbm.coordinates(n, x, y, z);
+	if (lbm.flags[n] != TYPE_S) lbm.u.y[n] = lbm_u;
+	if (x == 0u || x == Nx - 1u || y == 0u || y == Ny - 1u || z == 0u || z == Nz - 1u) lbm.flags[n] = TYPE_E; // all non periodic
+		}); // ####################################################################### run simulation, export images and data ##########################################################################
+	lbm.graphics.visualization_modes = VIS_FLAG_SURFACE | VIS_Q_CRITERION;
+	lbm.run(0u, lbm_T); // initialize simulation
+#if defined(FP16S)
+	const string path = get_exe_path() + "FP16S/" + to_string(memory) + "MB/";
+#elif defined(FP16C)
+	const string path = get_exe_path() + "FP16C/" + to_string(memory) + "MB/";
+#else // FP32
+	const string path = get_exe_path() + "FP32/" + to_string(memory) + "MB/";
+#endif // FP32
+	lbm.write_status(path);
+	write_file(path + "Cd.dat", "# t\tCd\n");
+	const float3 lbm_com = lbm.object_center_of_mass(TYPE_S | TYPE_X);
+	print_info("com = " + to_string(lbm_com.x, 2u) + ", " + to_string(lbm_com.y, 2u) + ", " + to_string(lbm_com.z, 2u));
+	while (lbm.get_t() <= lbm_T) { // main simulation loop
+		Clock clock;
+		const float3 lbm_force = lbm.object_force(TYPE_S | TYPE_X);
+		//const float3 lbm_torque = lbm.object_torque(lbm_com, TYPE_S|TYPE_X);
+		//print_info("F="+to_string(lbm_force.x, 2u)+","+to_string(lbm_force.y, 2u)+","+to_string(lbm_force.z, 2u)+", T="+to_string(lbm_torque.x, 2u)+","+to_string(lbm_torque.y, 2u)+","+to_string(lbm_torque.z, 2u)+", t="+to_string(clock.stop(), 3u));
+		const float Cd = units.si_F(lbm_force.y) / (0.5f * si_rho * sq(si_u) * Aproj_xz_SI); 
+		print_info("Cd = " + to_string(Cd, 6u) + ", t = " + to_string(clock.stop(), 6u));
+		write_line(path + "Cd.dat", to_string(lbm.get_t()) + "\t" + to_string(Cd, 6u) + "\n");
+		lbm.run(1u, lbm_T);
+	}
+	//lbm.write_status(path);
+} /**/
+
+```
+
+
 
 ---
 

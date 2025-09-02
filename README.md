@@ -31,11 +31,8 @@ Backup (Markdown) version of the two GIFs:
    - Put STL files you plan to use in the usual place FluidX3D expects them: `FluidX3D-master\stl\`
 
 3) **Use the sphere drag setup**
-   - Replace your `void main_setup() { ... }` in `setup.cpp` your case with the snippet below. 
+   - Replace your `void main_setup() { ... }` in `setup.cpp` with the snippet below. 
    - Run FluidX3D. As `Cd.dat` updates, run the plotter to visualize C<sub>d</sub> vs. time.
-
-> **Tip**  
-> Keep an eye on domain size and resolution for your target Reynolds number; under-resolution can affect C<sub>d</sub>.
 
 ```cpp
 void main_setup() { // Sphere drag; required extensions in defines.hpp: FP16C, FORCE_FIELD, EQUILIBRIUM_BOUNDARIES, SUBGRID, optionally INTERACTIVE_GRAPHICS
@@ -112,6 +109,9 @@ void main_setup() { // Sphere drag; required extensions in defines.hpp: FP16C, F
     }
 }
 ```
+
+> **Tip**  
+> Keep an eye on domain size and resolution for your target Reynolds number; under-resolution can affect C<sub>d</sub>.
 
 ## Drag coefficient sweeping over Reynolds number
 

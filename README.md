@@ -173,7 +173,7 @@ void main_setup() { // Sphere drag; required extensions in defines.hpp: FP16C, F
 
 Left: vortical structures visualized with the Q-criterion (color represents speed). Right: live monitoring of the drag coefficient C<sub>d</sub>. Both videos are shown at 10× speed.
 
-After ~10,000 time steps, the sphere case stabilizes at C<sub>d</sub> ≈ 0.351 at Re ≈ 1,000,000. Using realistic mosquito-scale parameters—flight speed u = 2 m/s, body length L = 5 mm, and air ν ≈ 1.48×10⁻⁵ m²/s—the Reynolds number is Re = uL/ν ≈ 676, and C<sub>d</sub> ≈ 0.655. The setup.cpp is given as below.
+After ~10,000 time steps, the sphere case stabilizes at C<sub>d</sub> ≈ 0.351 at Re ≈ 1,000,000. Using realistic mosquito-scale parameters—flight speed u = 2 m/s, body length L = 5 mm, and air ν ≈ 1.48×10⁻⁵ m²/s—the Reynolds number is Re = uL/ν ≈ 676, and C<sub>d</sub> ≈ 0.655. The `setup.cpp` for mosquito case is given as below.
 
 ```cpp
 
@@ -267,7 +267,7 @@ void main_setup() { // mosquito; required extensions in defines.hpp: FP16S, EQUI
 
 ---
 
-## Projected Area Calculation Methods – Triangle-based projection area
+## Projected area calculation
 
 The STL geometry is read as a triangle mesh (`p0, p1, p2` per triangle).  
 For each triangle we compute the cross product of its edges to obtain the surface normal.  

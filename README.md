@@ -6,12 +6,14 @@ Drag coefficient (**C<sub>d</sub>**) visualization & analysis helper for [FluidX
 
 This repository provides small helper scripts and examples to **output drag coefficients over time** from FluidX3D and **visualize / track** them during a run. It also includes a **baseline sphere case** for C<sub>d</sub> validation.
 
-## Example (Sphere)
+## Example (Sphere, **Re** = 10,000)
 
 <p align="center">
   <img src="misc/Re_10000_Q_10x.gif" alt="Simulation demo (10× faster)" width="54%"/>
   <img src="misc/Re_10000_Cd_10x.gif" alt="C_d output demo (10× faster)" width="43%"/>
 </p>
+
+Left: vortical structures visualized with the Q-criterion. Right: live monitoring of the drag coefficient C<sub>d</sub>. Both videos are shown at 10× speed.
 
 <!--
 Backup (Markdown) version of the two GIFs:

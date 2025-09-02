@@ -177,6 +177,22 @@ Left: vortical structures visualized with the Q-criterion. Right: live monitorin
 
 
 
+2 m/s 5mm length (Re=676)
+
+---
+
+## Projected Area Calculation Methods – Triangle-based projection area
+
+The STL geometry is read as a triangle mesh (`p0, p1, p2` per triangle).  
+For each triangle we compute the cross product of its edges to obtain the surface normal.  
+The projected area onto the *x–z* plane is then calculated as:
+
+\[
+A_{xz} = \tfrac{1}{2}\sum_i \big| \big((b-a)\times(c-a)\big)_y \big|
+\]
+
+This sums the contribution of each triangle’s orientation, giving an accurate projected area in SI units **before voxelization**.
+
 ---
 
 ### References

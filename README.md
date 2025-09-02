@@ -45,7 +45,7 @@ void main_setup() { // Sphere drag; required extensions in defines.hpp: FP16C, F
     const float si_D    = 1.0f;
     const float PI      = 3.14159265358979323846f;
     const float si_A    = 0.25f * si_D * si_D * PI;
-    const float si_T    = 2.0e13f;
+    const float si_T    = 2.0e13f;     // may need to be increased for low Reynolds numbers
     const float si_Lx   = box_scale * si_D;
     const float si_Ly   = 2.0f * box_scale * si_D;
     const float si_Lz   = box_scale * si_D;

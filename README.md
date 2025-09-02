@@ -161,7 +161,20 @@ void main_setup() { // Sphere drag; required extensions in defines.hpp: FP16C, F
 - `Mustang_2014.stl`: free STL model from Cults3D (https://www.thingiverse.com/thing:4978646)
 
 > **Note 1.** Mosquito wings are static in this demo; C<sub>d</sub> reflects a fixed posture.  
-> **Note 2.** Car cases generally require a ground wall (moving or stationary) and appropriate BCs.
+> **Note 2.** Car cases generally require a ground wall and appropriate BCs.
+
+---
+
+## Mosquito case (**Re** = 10,000)
+
+<p align="center">
+  <img src="misc/Re_10000_Q_10x.gif" alt="Simulation demo (10× faster)" width="54%"/>
+  <img src="misc/Re_10000_Cd_10x.gif" alt="C_d output demo (10× faster)" width="43%"/>
+</p>
+
+Left: vortical structures visualized with the Q-criterion. Right: live monitoring of the drag coefficient C<sub>d</sub>. Both videos are shown at 10× speed.
+
+
 
 ---
 

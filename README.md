@@ -24,7 +24,7 @@ Backup (Markdown) version of the two GIFs:
 ## Quickstart
 
 1) **Copy the live plotter**
-   - Place `live_cd_plot.py` into the directory where your FluidX3D executable lives: `FluidX3D-master\bin\`
+   - Place `live_Cd_plot.py` into the directory where your FluidX3D executable lives: `FluidX3D-master\bin\`
    - FluidX3D will write `Cd.dat` to a subdirectory (e.g., `FP16C/500MB/Cd.dat`). The plotter tails that file.
 
 2) **Copy geometry (STL)**
@@ -144,6 +144,7 @@ void main_setup() { // Sphere drag; required extensions in defines.hpp: FP16C, F
 ### Comparison (Re vs. C<sub>d</sub>)
 
 ![Re vs C<sub>d</sub> comparison with experiment and simulation](misc/Re_Cd_overlap.png)
+Plotted by `plot_Re_Cd.py`
 
 #### Note:
 - **Black dots**: measured simulation data from this tool.  

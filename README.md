@@ -141,10 +141,10 @@ void main_setup() { // Sphere drag; required extensions in defines.hpp: FP16C, F
 | **Relaxation Time** | 0.50118124 |
 | **Reynolds Number** | Re < 566285 |
 
-### Comparison (Re vs. C<sub>d</sub>)
+### Result comparison (Re vs. C<sub>d</sub>, plotted by `plot_Re_Cd.py`)
 
 ![Re vs C<sub>d</sub> comparison with experiment and simulation](misc/Re_Cd_overlap.png)
-Plotted by `plot_Re_Cd.py`
+
 
 #### Note:
 - **Black dots**: measured simulation data from this tool.  
